@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void startFly() {
+        if (points.size()==1){
+            return;
+        }
 
         // 设置飞行的总时间
         planeMarker.setTotalDuration(second);
@@ -180,6 +184,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_reset_route://重置航线事件
 
                 if (flag) {  //表示确认航线
+
+                    if (points.isEmpty()){
+                        Toast.makeText(this,"请选择航线！",Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
                     bt_reset_route.setText("重置航线");
 
                     aMap.setOnMapClickListener(null);
